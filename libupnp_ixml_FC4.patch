@@ -1,0 +1,18 @@
+--- ../libupnp-1.2.1a/ixml/src/element.c	2003-02-13 17:18:51.000000000 +0100
++++ ixml/src/element.c	2005-11-05 20:47:25.000000000 +0100
+@@ -454,9 +454,12 @@
+             element->n.firstAttr = nextSib;
+         }
+ 
+-        ( IXML_Attr * ) attrNode->parentNode = NULL;
+-        ( IXML_Attr * ) attrNode->prevSibling = NULL;
+-        ( IXML_Attr * ) attrNode->nextSibling = NULL;
++        // removed the casts, else it did not compile on FC4
++        // Sergey 'Jin' Bostandzhyan <jin_eld at users.sourceforge.net>
++        attrNode->parentNode = NULL;
++        attrNode->prevSibling = NULL;
++        attrNode->nextSibling = NULL;
++        
+         *rtAttr = ( IXML_Attr * ) attrNode;
+         return IXML_SUCCESS;
+ 

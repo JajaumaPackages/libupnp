@@ -1,0 +1,20 @@
+--- libupnp-1.2.1a/upnp/inc/config.h	2003-02-13 17:19:02.000000000 +0100
++++ libupnp-1.2.1a/upnp/inc/config.h	2005-03-08 21:26:25.000000000 +0100
+@@ -65,7 +65,7 @@
+  */
+ 
+ //@{
+-#define JOBS_PER_THREAD 10
++#define JOBS_PER_THREAD 1
+ //@}
+ 
+ /** @name MIN_THREADS
+@@ -78,7 +78,7 @@
+  */
+ 
+ //@{
+-#define MIN_THREADS 2 
++#define MIN_THREADS 4 
+ //@}
+ 
+ /** @name MAX_THREADS
