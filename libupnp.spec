@@ -1,7 +1,7 @@
 Version: 1.2.1a
 Summary: Universal Plug and Play (UPnP) SDK
 Name: libupnp
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: BSD
 Group: System Environment/Libraries
 URL: http://upnp.sourceforge.net/
@@ -83,6 +83,9 @@ make -C threadutil PREFIX=%{buildroot} install
 rm -rf %{buildroot}
 
 %changelog
+* Fri Feb 10 2006 Eric Tanguy <eric.tanguy@univ-nantes.fr> - 1.2.1a-5
+- Rebuild for FC5
+
 * Mon Jan  9 2006 Eric Tanguy 1.2.1a-4
 - Include libupnp.so symlink in package to take care of non versioning of libupnp.so.1.2.1
 
