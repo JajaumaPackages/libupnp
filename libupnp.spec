@@ -1,7 +1,7 @@
 Version: 1.2.1a
 Summary: Universal Plug and Play (UPnP) SDK
 Name: libupnp
-Release: 5%{?dist}
+Release: 6%{?dist}
 License: BSD
 Group: System Environment/Libraries
 URL: http://upnp.sourceforge.net/
@@ -83,6 +83,9 @@ make -C threadutil PREFIX=%{buildroot} install
 rm -rf %{buildroot}
 
 %changelog
+* Tue Feb 14 2006 Eric Tanguy <eric.tanguy@univ-nantes.fr> - 1.2.1a-6
+- Rebuild for FC5
+
 * Fri Feb 10 2006 Eric Tanguy <eric.tanguy@univ-nantes.fr> - 1.2.1a-5
 - Rebuild for FC5
 
