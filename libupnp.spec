@@ -1,14 +1,11 @@
-Version: 1.2.1a
+Version: 1.3.1
 Summary: Universal Plug and Play (UPnP) SDK
 Name: libupnp
-Release: 6%{?dist}
+Release: 1%{?dist}
 License: BSD
 Group: System Environment/Libraries
 URL: http://upnp.sourceforge.net/
 Source: http://ovh.dl.sourceforge.net/sourceforge/upnp/%{name}-%{version}.tar.gz
-Patch0: libupnp_dsm_320.patch 
-Patch1: libupnp_ixml_FC4.patch 
-Patch2: libupnp_performance.patch
 Buildroot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 %description
@@ -28,61 +25,46 @@ the UPnP SDK libraries.
 %prep
 %setup -q
 
-%patch0 -p0
-%patch1 -p0
-%patch2 -p1
 chmod 644 {LICENSE,README}
 
-# Fix permissions for files in debuginfo package
-find . -name '*.[ch]' | xargs chmod 644
-
-# Fix libupnp.so symlink
-sed -i -e 's#ln -s \$(PREFIX)/usr/lib/libupnp\.so#ln -s libupnp.so#' upnp/makefile
-
-# Remove -Os optflag and add RPM optflags in makefiles
-# Install libraries in correct directories
-find . -name '[Mm]akefile' | xargs sed -i \
-	-e 's/^\([[:space:]]*CFLAGS .*\) -Os/\1/' \
-	-e 's/^\([[:space:]]*DEBUG_FLAGS .*\) -Os/\1/' \
-	-e 's/^[[:space:]]*CFLAGS .*/& $(RPM_OPT_FLAGS)/' \
-	-e 's#/usr/lib\([/ ;]\)#%{_libdir}\1#g' \
-	-e 's#/usr/lib$#%{_libdir}#g'
-
 %build
-make -C upnp STRIP="echo Not stripping" %{?_smp_mflags}
+%configure
+make %{?_smp_mflags}
 
 %install
 rm -rf %{buildroot}
+%makeinstall
 
-## Install libupnp.so and headers
-make -C upnp PREFIX=%{buildroot} install
-
-## Install libixml.so and headers
-make -C ixml PREFIX=%{buildroot} install
-install -p ixml/inc/ixml.h %{buildroot}%{_includedir}/upnp
-
-## Install libthreadutil.so and headers
-make -C threadutil PREFIX=%{buildroot} install
-
+rm %{buildroot}%{_libdir}/{libixml.la,libthreadutil.la,libupnp.la}
 %post -p /sbin/ldconfig
 
 %postun -p /sbin/ldconfig
 
 %files
 %defattr(-,root,root,-)
-%doc LICENSE README
-%{_libdir}/libixml.so*
-%{_libdir}/libthreadutil.so*
-%{_libdir}/libupnp.so*
+%doc LICENSE README NEWS
+%{_libdir}/libixml.so.*
+%{_libdir}/libthreadutil.so.*
+%{_libdir}/libupnp.so.*
 
 %files devel
 %defattr(0644,root,root,0755)
 %{_includedir}/upnp/
+%{_libdir}/libixml.so
+%{_libdir}/libthreadutil.so
+%{_libdir}/libupnp.so
+%{_libdir}/libixml.a
+%{_libdir}/libthreadutil.a
+%{_libdir}/libupnp.a
+%{_libdir}/pkgconfig/libupnp.pc
 
 %clean
 rm -rf %{buildroot}
 
 %changelog
+* Sun Mar 05 2006 Eric Tanguy <eric.tanguy@univ-nantes.fr> - 1.3.1-1
+- Update to 1.3.1
+
 * Tue Feb 14 2006 Eric Tanguy <eric.tanguy@univ-nantes.fr> - 1.2.1a-6
 - Rebuild for FC5
 
