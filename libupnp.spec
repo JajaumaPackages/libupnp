@@ -1,12 +1,16 @@
-Version: 1.3.1
+Version: 1.4.0
 Summary: Universal Plug and Play (UPnP) SDK
 Name: libupnp
 Release: 1%{?dist}
 License: BSD
 Group: System Environment/Libraries
-URL: http://upnp.sourceforge.net/
-Source: http://ovh.dl.sourceforge.net/sourceforge/upnp/%{name}-%{version}.tar.gz
+URL: http://www.libupnp.org/
+Source: http://puzzle.dl.sourceforge.net/sourceforge/pupnp/%{name}-%{version}.tar.gz
+Source1: http://puzzle.dl.sourceforge.net/sourceforge/pupnp/UPnP_1_4_0_Programming_Guide.pdf
 Buildroot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+
+%define docdir %{_docdir}/%{name}-%{version}-%{release}
+%define docdeveldir %{_docdir}/%{name}-devel-%{version}-%{release}
 
 %description
 The Universal Plug and Play (UPnP) SDK for Linux provides 
@@ -25,30 +29,44 @@ the UPnP SDK libraries.
 %prep
 %setup -q
 
-chmod 644 {LICENSE,README}
+#chmod 644 {LICENSE,README}
 
 %build
-%configure
+%configure --with-docdir=%{docdir}/
 make %{?_smp_mflags}
 
 %install
-rm -rf %{buildroot}
-%makeinstall
+test "$RPM_BUILD_ROOT" != "/" && rm -rf $RPM_BUILD_ROOT
+make install DESTDIR=$RPM_BUILD_ROOT
+#delete the empty pdf
+%{__rm} %{buildroot}%{docdir}/UPnP_Programming_Guide.pdf
 
-rm %{buildroot}%{_libdir}/{libixml.la,libthreadutil.la,libupnp.la}
+#create the doc devel dir
+%{__mkdir_p} %{buildroot}%{docdeveldir}
+
+#mv examples dir to he doc devel dir
+%{__mv} %{buildroot}%{docdir}/examples \
+	%{buildroot}%{docdeveldir}/
+
+#install the right pdf in the doc devel dir
+install -D -m0644 %{SOURCE1} %{buildroot}%{docdeveldir}/UPnP_1_4_0_Programming_Guide.pdf
+
+%{__rm} %{buildroot}%{_libdir}/{libixml.la,libthreadutil.la,libupnp.la}
+
 %post -p /sbin/ldconfig
 
 %postun -p /sbin/ldconfig
 
 %files
 %defattr(-,root,root,-)
-%doc LICENSE README NEWS
+%doc %{docdir}
 %{_libdir}/libixml.so.*
 %{_libdir}/libthreadutil.so.*
 %{_libdir}/libupnp.so.*
 
 %files devel
 %defattr(0644,root,root,0755)
+%doc %{docdeveldir}
 %{_includedir}/upnp/
 %{_libdir}/libixml.so
 %{_libdir}/libthreadutil.so
@@ -62,6 +80,9 @@ rm %{buildroot}%{_libdir}/{libixml.la,libthreadutil.la,libupnp.la}
 rm -rf %{buildroot}
 
 %changelog
+* Sun Jun 11 2006 Eric Tanguy <eric.tanguy@univ-nantes.fr> - 1.4.0-1
+- Update to 1.4.0
+
 * Sun Mar 05 2006 Eric Tanguy <eric.tanguy@univ-nantes.fr> - 1.3.1-1
 - Update to 1.3.1
 
