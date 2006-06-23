@@ -1,12 +1,13 @@
 Version: 1.4.0
 Summary: Universal Plug and Play (UPnP) SDK
 Name: libupnp
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: BSD
 Group: System Environment/Libraries
 URL: http://www.libupnp.org/
 Source: http://puzzle.dl.sourceforge.net/sourceforge/pupnp/%{name}-%{version}.tar.gz
 Source1: http://puzzle.dl.sourceforge.net/sourceforge/pupnp/UPnP_1_4_0_Programming_Guide.pdf
+Patch0: libupnparch.diff
 Buildroot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 %define docdir %{_docdir}/%{name}-%{version}-%{release}
@@ -28,6 +29,7 @@ the UPnP SDK libraries.
 
 %prep
 %setup -q
+%patch0 -p1
 
 #chmod 644 {LICENSE,README}
 
@@ -80,6 +82,9 @@ install -D -m0644 %{SOURCE1} %{buildroot}%{docdeveldir}/UPnP_1_4_0_Programming_G
 rm -rf %{buildroot}
 
 %changelog
+* Fri Jun 23 2006 Eric Tanguy <eric.tanguy@univ-nantes.fr> - 1.4.0-2
+- Add a patch for x86_64 arch
+
 * Sun Jun 11 2006 Eric Tanguy <eric.tanguy@univ-nantes.fr> - 1.4.0-1
 - Update to 1.4.0
 
