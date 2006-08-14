@@ -1,13 +1,11 @@
-Version: 1.4.0
+Version: 1.4.1
 Summary: Universal Plug and Play (UPnP) SDK
 Name: libupnp
-Release: 3%{?dist}
+Release: 1%{?dist}
 License: BSD
 Group: System Environment/Libraries
 URL: http://www.libupnp.org/
 Source: http://puzzle.dl.sourceforge.net/sourceforge/pupnp/%{name}-%{version}.tar.gz
-Source1: http://puzzle.dl.sourceforge.net/sourceforge/pupnp/UPnP_1_4_0_Programming_Guide.pdf
-Patch0: libupnparch.diff
 Buildroot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 %define docdir %{_docdir}/%{name}-%{version}-%{release}
@@ -29,29 +27,27 @@ the UPnP SDK libraries.
 
 %prep
 %setup -q
-%patch0 -p1
-
-#chmod 644 {LICENSE,README}
 
 %build
-%configure --with-docdir=%{docdir}/
+%configure --with-docdir=%{docdir}/ 
 make %{?_smp_mflags}
 
 %install
 test "$RPM_BUILD_ROOT" != "/" && rm -rf $RPM_BUILD_ROOT
 make install DESTDIR=$RPM_BUILD_ROOT
-#delete the empty pdf
-%{__rm} %{buildroot}%{docdir}/UPnP_Programming_Guide.pdf
 
 #create the doc devel dir
 %{__mkdir_p} %{buildroot}%{docdeveldir}
 
-#mv examples dir to he doc devel dir
+#mv examples dir and pdf file to the doc devel dir
 %{__mv} %{buildroot}%{docdir}/examples \
 	%{buildroot}%{docdeveldir}/
-
-#install the right pdf in the doc devel dir
-install -D -m0644 %{SOURCE1} %{buildroot}%{docdeveldir}/UPnP_1_4_0_Programming_Guide.pdf
+%{__mv} %{buildroot}%{docdir}/UPnP_Programming_Guide.pdf \
+	%{buildroot}%{docdeveldir}/
+%{__mv} %{buildroot}%{docdir}/IXML_Programming_Guide.pdf \
+	%{buildroot}%{docdeveldir}/
+%{__mv} %{buildroot}%{docdir}/html \
+	%{buildroot}%{docdeveldir}/
 
 %{__rm} %{buildroot}%{_libdir}/{libixml.la,libthreadutil.la,libupnp.la}
 
@@ -82,6 +78,9 @@ install -D -m0644 %{SOURCE1} %{buildroot}%{docdeveldir}/UPnP_1_4_0_Programming_G
 rm -rf %{buildroot}
 
 %changelog
+* Wed Jul 05 2006 Eric Tanguy <eric.tanguy@univ-nantes.fr> - 1.4.1-1
+- Update to version 1.4.1
+
 * Fri Jun 23 2006 Eric Tanguy <eric.tanguy@univ-nantes.fr> - 1.4.0-3
 - modified patch for x86_64 arch
 
