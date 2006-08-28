@@ -1,7 +1,7 @@
 Version: 1.4.1
 Summary: Universal Plug and Play (UPnP) SDK
 Name: libupnp
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: BSD
 Group: System Environment/Libraries
 URL: http://www.libupnp.org/
@@ -78,6 +78,9 @@ make install DESTDIR=$RPM_BUILD_ROOT
 rm -rf %{buildroot}
 
 %changelog
+* Mon Aug 28 2006 Eric Tanguy <eric.tanguy@univ-nantes.fr> - 1.4.1-2
+- Rebuild for Fedora Extras 6
+
 * Wed Jul 05 2006 Eric Tanguy <eric.tanguy@univ-nantes.fr> - 1.4.1-1
 - Update to version 1.4.1
 
