@@ -1,15 +1,15 @@
-Version: 1.4.1
+Version: 1.4.2
 Summary: Universal Plug and Play (UPnP) SDK
 Name: libupnp
-Release: 2%{?dist}
+Release: 1%{?dist}
 License: BSD
 Group: System Environment/Libraries
 URL: http://www.libupnp.org/
-Source: http://puzzle.dl.sourceforge.net/sourceforge/pupnp/%{name}-%{version}.tar.gz
+Source: http://puzzle.dl.sourceforge.net/sourceforge/pupnp/%{name}-%{version}.tar.bz2
 Buildroot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
-%define docdir %{_docdir}/%{name}-%{version}-%{release}
-%define docdeveldir %{_docdir}/%{name}-devel-%{version}-%{release}
+%define docdeveldir %{_docdir}/%{name}-devel-%{version}
+%define docdir %{_docdir}/%{name}-%{version}
 
 %description
 The Universal Plug and Play (UPnP) SDK for Linux provides 
@@ -29,7 +29,7 @@ the UPnP SDK libraries.
 %setup -q
 
 %build
-%configure --with-docdir=%{docdir}/ 
+%configure --with-documentation
 make %{?_smp_mflags}
 
 %install
@@ -78,8 +78,8 @@ make install DESTDIR=$RPM_BUILD_ROOT
 rm -rf %{buildroot}
 
 %changelog
-* Mon Aug 28 2006 Eric Tanguy <eric.tanguy@univ-nantes.fr> - 1.4.1-2
-- Rebuild for Fedora Extras 6
+* Fri Feb 02 2007 Eric Tanguy <eric.tanguy@univ-nantes.fr> - 1.4.2-1
+- Update to version 1.4.2
 
 * Wed Jul 05 2006 Eric Tanguy <eric.tanguy@univ-nantes.fr> - 1.4.1-1
 - Update to version 1.4.1
