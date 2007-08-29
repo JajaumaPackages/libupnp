@@ -1,7 +1,7 @@
 Version: 1.6.0
 Summary: Universal Plug and Play (UPnP) SDK
 Name: libupnp
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: BSD
 Group: System Environment/Libraries
 URL: http://www.libupnp.org/
@@ -78,6 +78,9 @@ make install DESTDIR=$RPM_BUILD_ROOT
 rm -rf %{buildroot}
 
 %changelog
+* Wed Aug 29 2007 Fedora Release Engineering <rel-eng at fedoraproject dot org> - 1.6.0-2
+- Rebuild for selinux ppc32 issue.
+
 * Wed Jun 13 2007 Eric Tanguy <eric.tanguy@univ-nantes.fr> - 1.6.0-1
 - Update to version 1.6.0
 
