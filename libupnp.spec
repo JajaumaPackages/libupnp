@@ -1,12 +1,11 @@
-Version: 1.6.0
+Version: 1.6.1
 Summary: Universal Plug and Play (UPnP) SDK
 Name: libupnp
-Release: 3%{?dist}
+Release: 1%{?dist}
 License: BSD
 Group: System Environment/Libraries
 URL: http://www.libupnp.org/
 Source: http://puzzle.dl.sourceforge.net/sourceforge/pupnp/%{name}-%{version}.tar.bz2
-Patch0: open.patch
 Buildroot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 %define docdeveldir %{_docdir}/%{name}-devel-%{version}
@@ -28,7 +27,6 @@ the UPnP SDK libraries.
 
 %prep
 %setup -q
-%patch0 -p1
 
 %build
 %configure --with-documentation
@@ -80,8 +78,8 @@ make install DESTDIR=$RPM_BUILD_ROOT
 rm -rf %{buildroot}
 
 %changelog
-* Fri Sep 07 2007 Eric Tanguy <eric.tanguy@univ-nantes.fr> - 1.6.0-3
-- Patch to build with new glibc
+* Sun Nov 18 2007 Eric Tanguy <eric.tanguy@univ-nantes.fr> - 1.6.1-1
+- Update to version 1.6.1
 
 * Wed Aug 29 2007 Fedora Release Engineering <rel-eng at fedoraproject dot org> - 1.6.0-2
 - Rebuild for selinux ppc32 issue.
