@@ -1,4 +1,4 @@
-Version: 1.6.1
+Version: 1.6.2
 Summary: Universal Plug and Play (UPnP) SDK
 Name: libupnp
 Release: 1%{?dist}
@@ -6,7 +6,9 @@ License: BSD
 Group: System Environment/Libraries
 URL: http://www.libupnp.org/
 Source: http://puzzle.dl.sourceforge.net/sourceforge/pupnp/%{name}-%{version}.tar.bz2
+#Patch0: open.patch
 Buildroot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+BuildRequires: gawk, gcc-gfortran
 
 %define docdeveldir %{_docdir}/%{name}-devel-%{version}
 %define docdir %{_docdir}/%{name}-%{version}
@@ -27,6 +29,7 @@ the UPnP SDK libraries.
 
 %prep
 %setup -q
+#%patch0 -p1
 
 %build
 %configure --with-documentation
@@ -78,6 +81,9 @@ make install DESTDIR=$RPM_BUILD_ROOT
 rm -rf %{buildroot}
 
 %changelog
+* Thu Dec 13 2007 Eric Tanguy <eric.tanguy@univ-nantes.fr> - 1.6.2-1
+- Update to version 1.6.2
+
 * Sun Nov 18 2007 Eric Tanguy <eric.tanguy@univ-nantes.fr> - 1.6.1-1
 - Update to version 1.6.1
 
