@@ -1,7 +1,7 @@
 Version: 1.6.3
 Summary: Universal Plug and Play (UPnP) SDK
 Name: libupnp
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: BSD
 Group: System Environment/Libraries
 URL: http://www.libupnp.org/
@@ -29,7 +29,7 @@ the UPnP SDK libraries.
 %setup -q
 
 %build
-%configure --with-documentation
+%configure --with-documentation --enable-static=no
 make %{?_smp_mflags}
 
 %install
@@ -69,15 +69,15 @@ make install DESTDIR=$RPM_BUILD_ROOT
 %{_libdir}/libixml.so
 %{_libdir}/libthreadutil.so
 %{_libdir}/libupnp.so
-%{_libdir}/libixml.a
-%{_libdir}/libthreadutil.a
-%{_libdir}/libupnp.a
 %{_libdir}/pkgconfig/libupnp.pc
 
 %clean
 rm -rf %{buildroot}
 
 %changelog
+* Fri Jan 04 2008 Eric Tanguy <eric.tanguy@univ-nantes.fr> - 1.6.3-3
+- No more building static library
+
 * Sun Dec 30 2007 Eric Tanguy <eric.tanguy@univ-nantes.fr> - 1.6.3-2
 - Spec file cleanup
 
