@@ -1,7 +1,7 @@
-Version: 1.6.3
+Version: 1.6.4
 Summary: Universal Plug and Play (UPnP) SDK
 Name: libupnp
-Release: 3%{?dist}
+Release: 1%{?dist}
 License: BSD
 Group: System Environment/Libraries
 URL: http://www.libupnp.org/
@@ -75,6 +75,9 @@ make install DESTDIR=$RPM_BUILD_ROOT
 rm -rf %{buildroot}
 
 %changelog
+* Sun Jan 27 2008 Eric Tanguy <eric.tanguy@univ-nantes.fr> - 1.6.4-1
+- Update to version 1.6.4
+
 * Fri Jan 04 2008 Eric Tanguy <eric.tanguy@univ-nantes.fr> - 1.6.3-3
 - No more building static library
 
