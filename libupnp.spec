@@ -1,4 +1,4 @@
-Version: 1.6.5
+Version: 1.6.6
 Summary: Universal Plug and Play (UPnP) SDK
 Name: libupnp
 Release: 1%{?dist}
@@ -75,6 +75,9 @@ make install DESTDIR=$RPM_BUILD_ROOT
 rm -rf %{buildroot}
 
 %changelog
+* Thu May 01 2008 Eric Tanguy <eric.tanguy@univ-nantes.fr> - 1.6.6-1
+- Update to version 1.6.6
+
 * Sun Feb 03 2008 Eric Tanguy <eric.tanguy@univ-nantes.fr> - 1.6.5-1
 - Update to version 1.6.5
 
