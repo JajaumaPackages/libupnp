@@ -1,12 +1,11 @@
-Version: 1.6.6
+Version: 1.6.13
 Summary: Universal Plug and Play (UPnP) SDK
 Name: libupnp
-Release: 4%{?dist}
+Release: 1%{?dist}
 License: BSD
 Group: System Environment/Libraries
 URL: http://www.libupnp.org/
 Source: http://puzzle.dl.sourceforge.net/sourceforge/pupnp/%{name}-%{version}.tar.bz2
-Buildroot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 %define docdeveldir %{_docdir}/%{name}-devel-%{version}
 %define docdir %{_docdir}/%{name}-%{version}
@@ -75,6 +74,9 @@ make install DESTDIR=$RPM_BUILD_ROOT
 rm -rf %{buildroot}
 
 %changelog
+* Tue May 31 2011 Adam Jackson <ajax@redhat.com> 1.6.13-1
+- libupnp 1.6.13
+
 * Tue Feb 08 2011 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.6.6-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_15_Mass_Rebuild
 
