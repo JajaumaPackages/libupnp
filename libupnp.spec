@@ -1,7 +1,7 @@
 Version: 1.6.13
 Summary: Universal Plug and Play (UPnP) SDK
 Name: libupnp
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: BSD
 Group: System Environment/Libraries
 URL: http://www.libupnp.org/
@@ -74,6 +74,9 @@ make install DESTDIR=$RPM_BUILD_ROOT
 rm -rf %{buildroot}
 
 %changelog
+* Sat Jul 30 2011 Matěj Cepl <mcepl@redhat.com> - 1.6.13-2
+- Rebuilt against new libraries.
+
 * Tue May 31 2011 Adam Jackson <ajax@redhat.com> 1.6.13-1
 - libupnp 1.6.13
 
