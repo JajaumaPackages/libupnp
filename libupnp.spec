@@ -1,7 +1,7 @@
 Version: 1.6.13
 Summary: Universal Plug and Play (UPnP) SDK
 Name: libupnp
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: BSD
 Group: System Environment/Libraries
 URL: http://www.libupnp.org/
@@ -74,6 +74,9 @@ make install DESTDIR=$RPM_BUILD_ROOT
 rm -rf %{buildroot}
 
 %changelog
+* Thu Jul 19 2012 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.6.13-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_18_Mass_Rebuild
+
 * Fri Jan 13 2012 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.6.13-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_17_Mass_Rebuild
 
