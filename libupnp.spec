@@ -1,4 +1,4 @@
-Version: 1.6.17
+Version: 1.6.18
 Summary: Universal Plug and Play (UPnP) SDK
 Name: libupnp
 Release: 1%{?dist}
@@ -74,6 +74,9 @@ make install DESTDIR=$RPM_BUILD_ROOT
 rm -rf %{buildroot}
 
 %changelog
+* Tue Jan 29 2013 Adam Jackson <ajax@redhat.com> 1.6.18-1
+- libupnp 1.6.18 (#905577)
+
 * Tue Oct 16 2012 Adam Jackson <ajax@redhat.com> 1.6.17-1
 - libupnp 1.6.17
 
