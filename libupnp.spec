@@ -1,7 +1,7 @@
 Version: 1.6.18
 Summary: Universal Plug and Play (UPnP) SDK
 Name: libupnp
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: BSD
 Group: System Environment/Libraries
 URL: http://www.libupnp.org/
@@ -35,18 +35,9 @@ make %{?_smp_mflags}
 test "$RPM_BUILD_ROOT" != "/" && rm -rf $RPM_BUILD_ROOT
 make install DESTDIR=$RPM_BUILD_ROOT
 
-#create the doc devel dir
-%{__mkdir_p} %{buildroot}%{docdeveldir}
-
-#mv examples dir and pdf file to the doc devel dir
-%{__mv} %{buildroot}%{docdir}/examples \
-	%{buildroot}%{docdeveldir}/
-%{__mv} %{buildroot}%{docdir}/UPnP_Programming_Guide.pdf \
-	%{buildroot}%{docdeveldir}/
-%{__mv} %{buildroot}%{docdir}/IXML_Programming_Guide.pdf \
-	%{buildroot}%{docdeveldir}/
-%{__mv} %{buildroot}%{docdir}/html \
-	%{buildroot}%{docdeveldir}/
+#the installed docs are all devel, setup them for pickup in %%files
+%{__mkdir} _devel_docs
+%{__mv} %{buildroot}%{docdir}/* _devel_docs
 
 %{__rm} %{buildroot}%{_libdir}/{libixml.la,libthreadutil.la,libupnp.la}
 
@@ -56,14 +47,14 @@ make install DESTDIR=$RPM_BUILD_ROOT
 
 %files
 %defattr(-,root,root,-)
-%doc %{docdir}
+%doc LICENSE THANKS
 %{_libdir}/libixml.so.2*
 %{_libdir}/libthreadutil.so.6*
 %{_libdir}/libupnp.so.6*
 
 %files devel
 %defattr(0644,root,root,0755)
-%doc %{docdeveldir}
+%doc _devel_docs/*
 %{_includedir}/upnp/
 %{_libdir}/libixml.so
 %{_libdir}/libthreadutil.so
@@ -74,6 +65,10 @@ make install DESTDIR=$RPM_BUILD_ROOT
 rm -rf %{buildroot}
 
 %changelog
+* Sun Oct 27 2013 Ville Skyttä <ville.skytta@iki.fi> - 1.6.18-4
+- Adapt to possibly unversioned doc dirs.
+- Include LICENSE and THANKS in main package.
+
 * Sat Aug 03 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.6.18-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_20_Mass_Rebuild
 
