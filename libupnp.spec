@@ -1,7 +1,7 @@
-Version: 1.6.18
+Version: 1.6.19
 Summary: Universal Plug and Play (UPnP) SDK
 Name: libupnp
-Release: 4%{?dist}
+Release: 1%{?dist}
 License: BSD
 Group: System Environment/Libraries
 URL: http://www.libupnp.org/
@@ -28,16 +28,12 @@ the UPnP SDK libraries.
 %setup -q
 
 %build
-%configure --with-documentation --enable-static=no
+%configure --enable-static=no --enable-ipv6
 make %{?_smp_mflags}
 
 %install
 test "$RPM_BUILD_ROOT" != "/" && rm -rf $RPM_BUILD_ROOT
 make install DESTDIR=$RPM_BUILD_ROOT
-
-#the installed docs are all devel, setup them for pickup in %%files
-%{__mkdir} _devel_docs
-%{__mv} %{buildroot}%{docdir}/* _devel_docs
 
 %{__rm} %{buildroot}%{_libdir}/{libixml.la,libthreadutil.la,libupnp.la}
 
@@ -54,7 +50,7 @@ make install DESTDIR=$RPM_BUILD_ROOT
 
 %files devel
 %defattr(0644,root,root,0755)
-%doc _devel_docs/*
+#doc _devel_docs/*
 %{_includedir}/upnp/
 %{_libdir}/libixml.so
 %{_libdir}/libthreadutil.so
@@ -65,6 +61,10 @@ make install DESTDIR=$RPM_BUILD_ROOT
 rm -rf %{buildroot}
 
 %changelog
+* Mon Dec 09 2013 Adam Jackson <ajax@redhat.com> 1.6.19-1
+- libupnp 1.6.19
+- Build with --enable-ipv6 (#917210)
+
 * Sun Oct 27 2013 Ville Skyttä <ville.skytta@iki.fi> - 1.6.18-4
 - Adapt to possibly unversioned doc dirs.
 - Include LICENSE and THANKS in main package.
