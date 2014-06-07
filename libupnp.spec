@@ -1,7 +1,7 @@
 Version: 1.6.19
 Summary: Universal Plug and Play (UPnP) SDK
 Name: libupnp
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: BSD
 Group: System Environment/Libraries
 URL: http://www.libupnp.org/
@@ -61,6 +61,9 @@ make install DESTDIR=$RPM_BUILD_ROOT
 rm -rf %{buildroot}
 
 %changelog
+* Sat Jun 07 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.6.19-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_21_Mass_Rebuild
+
 * Mon Dec 09 2013 Adam Jackson <ajax@redhat.com> 1.6.19-1
 - libupnp 1.6.19
 - Build with --enable-ipv6 (#917210)
