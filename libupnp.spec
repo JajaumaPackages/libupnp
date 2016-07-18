@@ -1,7 +1,7 @@
-Version: 1.6.19
+Version: 1.6.20
 Summary: Universal Plug and Play (UPnP) SDK
 Name: libupnp
-Release: 5%{?dist}
+Release: 1%{?dist}
 License: BSD
 Group: System Environment/Libraries
 URL: http://www.libupnp.org/
@@ -9,6 +9,8 @@ Source: http://downloads.sourceforge.net/pupnp/%{name}-%{version}.tar.bz2
 
 %define docdeveldir %{_docdir}/%{name}-devel-%{version}
 %define docdir %{_docdir}/%{name}-%{version}
+
+Patch0: 0001-Don-t-allow-unhandled-POSTs-to-write-to-the-filesyst.patch
 
 %description
 The Universal Plug and Play (UPnP) SDK for Linux provides 
@@ -26,6 +28,7 @@ the UPnP SDK libraries.
 
 %prep
 %setup -q
+%patch0 -p1
 
 %build
 %configure --enable-static=no --enable-ipv6
@@ -61,6 +64,10 @@ make install DESTDIR=$RPM_BUILD_ROOT
 rm -rf %{buildroot}
 
 %changelog
+* Mon Jul 18 2016 Adam Jackson <ajax@redhat.com> - 1.6.20-1
+- libupnp 1.6.20
+- Don't write to the filesystem on unhandled POST requests
+
 * Thu Feb 04 2016 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.19-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_24_Mass_Rebuild
 

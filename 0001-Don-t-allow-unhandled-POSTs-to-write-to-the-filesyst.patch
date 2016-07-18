@@ -1,0 +1,24 @@
+Originally:
+
+https://github.com/mjg59/pupnp-code/commit/be0a01bdb83395d9f3a5ea09c1308a4f1a972cbd
+
+But without the configure bits, because we're just going to leave it disabled
+anyway, and I don't feel like making autoreconf work.
+
+diff -up libupnp-1.6.20/upnp/src/genlib/net/http/webserver.c.jx libupnp-1.6.20/upnp/src/genlib/net/http/webserver.c
+--- libupnp-1.6.20/upnp/src/genlib/net/http/webserver.c.jx	2016-07-07 13:05:30.000000000 -0400
++++ libupnp-1.6.20/upnp/src/genlib/net/http/webserver.c	2016-07-18 14:02:23.920747068 -0400
+@@ -1367,9 +1367,13 @@ static int http_RecvPostMessage(
+ 		if (Fp == NULL)
+ 			return HTTP_INTERNAL_SERVER_ERROR;
+ 	} else {
++#ifdef UPNP_ENABLE_POST_WRITE
+ 		Fp = fopen(filename, "wb");
+ 		if (Fp == NULL)
+ 			return HTTP_UNAUTHORIZED;
++#else
++		return HTTP_NOT_FOUND;
++#endif
+ 	}
+ 	parser->position = POS_ENTITY;
+ 	do {
